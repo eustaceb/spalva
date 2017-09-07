@@ -22,9 +22,6 @@
     <Filter Include="Header Files\renderables">
       <UniqueIdentifier>{18cacf31-aaba-4ce5-b545-15dba7054796}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\includes">
-      <UniqueIdentifier>{19d7ec89-6953-482a-9d28-c3a6b1dc6b14}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scenes">
       <UniqueIdentifier>{83ef2a28-1f95-416b-a11a-1be133309cc1}</UniqueIdentifier>
     </Filter>
@@ -72,9 +69,6 @@
     <ClCompile Include="imgui\imgui_draw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\Imgui_Impl.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="scenes\BasicScene.cpp">
       <Filter>Source Files\scenes</Filter>
     </ClCompile>
@@ -107,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="renderables\Plane.cpp">
       <Filter>Source Files\renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui_Impl.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,9 +138,6 @@
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\Imgui_Impl.h">
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_internal.h">
@@ -193,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="Helpers.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\Imgui_Impl.h">
+      <Filter>imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

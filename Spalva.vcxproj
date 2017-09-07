@@ -123,7 +123,7 @@
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
-    <ClCompile Include="imgui\Imgui_Impl.cpp" />
+    <ClCompile Include="Imgui_Impl.cpp" />
     <ClCompile Include="renderables\Cube.cpp" />
     <ClCompile Include="renderables\InstancedModel.cpp" />
     <ClCompile Include="renderables\LightCube.cpp" />
