@@ -31,6 +31,12 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{b8af15e4-0715-48fe-b782-f19b91e93808}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\resourcing">
+      <UniqueIdentifier>{e95c779c-6093-4c85-aa92-e5fe652d214a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resourcing">
+      <UniqueIdentifier>{77eba441-6990-4562-ab19-d7306ba70fc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -104,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="Imgui_Impl.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="resourcing\Texture.cpp">
+      <Filter>Source Files\resourcing</Filter>
+    </ClCompile>
+    <ClCompile Include="renderables\BillboardParticles.cpp">
+      <Filter>Source Files\renderables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +202,12 @@
     </ClInclude>
     <ClInclude Include="imgui\Imgui_Impl.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="resourcing\Texture.h">
+      <Filter>Header Files\resourcing</Filter>
+    </ClInclude>
+    <ClInclude Include="renderables\BillboardParticles.h">
+      <Filter>Header Files\renderables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

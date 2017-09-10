@@ -2,13 +2,13 @@
 #ifndef _Helpers_H_
 #define _Helpers_H_
 
-#include <string>
+/*#include <string>
 #include <iostream>
 #include <stb/stb_image.h>
-#include <glad/glad.h>
+#include <glad/glad.h>*/
 
 namespace Helpers {
-
+/*
     inline GLuint loadTexture(const std::string &path, const bool &gammaCorrected = false)
     {
         GLuint texLoc;
@@ -49,7 +49,7 @@ namespace Helpers {
 
         stbi_image_free(image);
         return texLoc;
-    }
+    }*/
 }
 
 #endif // _Helpers_H_

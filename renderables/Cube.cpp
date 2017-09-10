@@ -4,11 +4,12 @@
 
 #include "Cube.h"
 #include "../Helpers.h"
+#include "../resourcing/Texture.h"
 
 
 Cube::Cube(std::shared_ptr<Shader> shader, const glm::vec3 &pos, const std::string &texturePath,
     const float edgeSize, const std::string &label)
-        : Renderable(shader, pos, label), m_Texture(0)
+        : Renderable(shader, pos, label)
 {
     // @TODO: Should tex coords be in [0, 1]?
     const float halfEdge = edgeSize / 2;
@@ -76,7 +77,7 @@ Cube::Cube(std::shared_ptr<Shader> shader, const glm::vec3 &pos, const std::stri
         // Texture
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-        m_Texture = Helpers::loadTexture(texturePath);
+        m_Texture = std::make_unique<Texture>(texturePath, "regular");
     }
     glBindVertexArray(0);
 }
@@ -85,18 +86,16 @@ Cube::~Cube()
 {
     glDeleteBuffers(1, &m_VBO);
     glDeleteVertexArrays(1, &m_VAO);
-    if (m_Texture != 0)
-        glDeleteTextures(1, &m_Texture);
 }
 
 
 void Cube::render()
 {
     glBindVertexArray(m_VAO);
-    if (m_Texture != 0)
+    if (m_Texture.get())
     {
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, m_Texture);
+        m_Texture->bind();
     }
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);

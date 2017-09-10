@@ -3,7 +3,10 @@
 #ifndef _Plane_H_
 #define _Plane_H_
 
+#include <memory>
+
 class Shader;
+class Texture;
 
 class Plane :
     public Renderable
@@ -15,7 +18,7 @@ public:
 
     void render();
 private:
-    GLuint m_Texture;
+    std::unique_ptr<Texture> m_Texture;
     GLuint m_VBO, m_VAO;
 };
 

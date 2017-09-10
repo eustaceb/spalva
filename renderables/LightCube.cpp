@@ -86,7 +86,7 @@ void LightCube::render()
     glBindVertexArray(0);
 }
 
-glm::vec3 LightCube::getAmbient()
+glm::vec3 LightCube::getAmbient() const
 {
     return m_Ambient;
 }
@@ -96,17 +96,17 @@ void LightCube::setAmbient(glm::vec3 ambient)
     mixColors();
 }
 
-glm::vec3 LightCube::getDiffuse()
+glm::vec3 LightCube::getDiffuse() const
 {
     return m_Diffuse;
 }
 
-glm::vec3 LightCube::getSpecular()
+glm::vec3 LightCube::getSpecular() const
 {
     return m_Specular;
 }
 
-GLfloat LightCube::getConstant()
+GLfloat LightCube::getConstant() const
 {
     return m_Constant;
 }
@@ -116,7 +116,7 @@ void LightCube::setConstant(GLfloat constant)
     notifyAll();
 }
 
-GLfloat LightCube::getLinear()
+GLfloat LightCube::getLinear() const
 {
     return m_Linear;
 }
@@ -125,7 +125,7 @@ void LightCube::setLinear(GLfloat linear)
     m_Linear = linear;
     notifyAll();
 }
-GLfloat LightCube::getQuadratic()
+GLfloat LightCube::getQuadratic() const
 {
     return m_Quadratic;
 }

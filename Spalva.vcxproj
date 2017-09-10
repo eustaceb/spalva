@@ -130,10 +130,12 @@
     <ClCompile Include="renderables\LightModel.cpp" />
     <ClCompile Include="renderables\Mesh.cpp" />
     <ClCompile Include="renderables\Model.cpp" />
+    <ClCompile Include="renderables\BillboardParticles.cpp" />
     <ClCompile Include="renderables\Plane.cpp" />
     <ClCompile Include="renderables\Renderable.cpp" />
     <ClCompile Include="renderables\Skybox.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="resourcing\Texture.cpp" />
     <ClCompile Include="scenes\AdvancedLightningScene.cpp" />
     <ClCompile Include="scenes\BasicScene.cpp" />
     <ClCompile Include="scenes\AdjustableScene.cpp" />
@@ -161,10 +163,12 @@
     <ClInclude Include="renderables\LightModel.h" />
     <ClInclude Include="renderables\Mesh.h" />
     <ClInclude Include="renderables\Model.h" />
+    <ClInclude Include="renderables\BillboardParticles.h" />
     <ClInclude Include="renderables\Plane.h" />
     <ClInclude Include="renderables\Renderable.h" />
     <ClInclude Include="renderables\Skybox.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="resourcing\Texture.h" />
     <ClInclude Include="scenes\AdvancedLightningScene.h" />
     <ClInclude Include="scenes\BasicScene.h" />
     <ClInclude Include="scenes\AdjustableScene.h" />

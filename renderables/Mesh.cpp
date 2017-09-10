@@ -4,12 +4,12 @@
 
 #include "Mesh.h"
 #include "../Shader.h"
+#include "../resourcing/Texture.h"
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, 
+    std::vector<std::shared_ptr<Texture>> textures)
+    : m_Vertices(vertices), m_Indices(indices), m_Textures(textures)
 {
-    m_Vertices = vertices;
-    m_Indices = indices;
-    m_Textures = textures;
     this->setupMesh();
 }
 
@@ -47,12 +47,12 @@ void Mesh::render(std::shared_ptr<Shader> shader)
     for (GLuint i = 0; i < m_Textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
-        std::string texType = m_Textures[i].type;
+        std::string texType = m_Textures[i]->getType();
         if (texType == "texture_diffuse")
             glUniform1i(shader->getUniform(("material." + texType + std::to_string(diffuseCount++)).c_str()), i);
         else if (texType == "texture_specular")
             glUniform1i(shader->getUniform(("material." + texType + std::to_string(specularCount++)).c_str()), i);
-        glBindTexture(GL_TEXTURE_2D, m_Textures[i].id);
+        m_Textures[i]->bind();
     }
     glActiveTexture(GL_TEXTURE0);
 
@@ -66,7 +66,7 @@ void Mesh::render(std::shared_ptr<Shader> shader)
     for (GLuint i = 0; i < m_Textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        m_Textures[i]->unbind();
     }
 }
 
@@ -77,7 +77,7 @@ Mesh::~Mesh()
     glDeleteVertexArrays(1, &m_VAO);
 }
 
-GLuint Mesh::getVAO()
+GLuint Mesh::getVAO() const
 {
     return m_VAO;
 }

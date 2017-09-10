@@ -15,12 +15,12 @@ Renderable::Renderable(std::shared_ptr<Shader> shader, const glm::vec3 &pos, con
 }
 
 
-std::shared_ptr<Shader> Renderable::getShader()
+std::shared_ptr<Shader> Renderable::getShader() const
 {
     return m_Shader;
 }
 
-glm::mat4 Renderable::getModelMatrix()
+glm::mat4 Renderable::getModelMatrix() const
 {
     return m_ModelMatrix;
 }
@@ -30,7 +30,7 @@ void Renderable::setLabel(const std::string & label)
     m_Label = label;
 }
 
-std::string Renderable::getLabel()
+std::string Renderable::getLabel() const
 {
     return m_Label;
 }
@@ -52,7 +52,7 @@ void Renderable::scale(glm::vec3 axis)
     m_ModelMatrix = glm::scale(m_ModelMatrix, axis);
 }
 
-glm::vec3 Renderable::getPos()
+glm::vec3 Renderable::getPos() const
 {
     return m_Pos;
 }

@@ -83,32 +83,32 @@ Shader::Shader(const GLchar *vertexPath, const GLchar *fragmentPath) {
     glDeleteShader(fragment);
 }
 
-void Shader::use() {
+void Shader::use() const {
     glUseProgram(this->program);
 }
 
-GLboolean Shader::getBool(const GLchar * name)
+GLboolean Shader::getBool(const GLchar * name) const
 {
     GLint result;
     glGetUniformiv(this->program, glGetUniformLocation(this->program, name), &result);
     return (GLboolean)result;
 }
 
-GLfloat Shader::getFloat(const GLchar * name)
+GLfloat Shader::getFloat(const GLchar * name) const
 {
     GLfloat result;
     glGetUniformfv(this->program, glGetUniformLocation(this->program, name), &result);
     return result;
 }
 
-GLint Shader::getInt(const GLchar * name)
+GLint Shader::getInt(const GLchar * name) const
 {
     GLint result;
     glGetUniformiv(this->program, glGetUniformLocation(this->program, name), &result);
     return result;
 }
 
-glm::vec3 Shader::getVec3(const GLchar * name)
+glm::vec3 Shader::getVec3(const GLchar * name) const
 {
     GLfloat result[3];
     glGetUniformfv(this->program, glGetUniformLocation(this->program, name), result);
@@ -140,7 +140,7 @@ void Shader::setVec3(const GLchar * name, const glm::vec3 & value)
     glUniform3f(glGetUniformLocation(this->program, name), value.x, value.y, value.z);
 }
 
-std::vector<std::pair<std::string, std::string>> Shader::getUserSettableUniforms()
+std::vector<std::pair<std::string, std::string>> Shader::getUserSettableUniforms() const
 {
     return m_UserSettableUniforms;
 }
@@ -191,6 +191,6 @@ std::pair<std::string, std::string> Shader::parseUniform(const std::string &unif
     return std::pair<std::string, std::string>(type, name);
 }
 
-GLint Shader::getUniform(const GLchar *name) {
+GLint Shader::getUniform(const GLchar *name) const {
     return glGetUniformLocation(this->program, name);
 }

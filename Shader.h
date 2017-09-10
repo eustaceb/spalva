@@ -16,13 +16,13 @@ class Shader {
 public:
     GLuint program;
     Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
-    GLint getUniform(const GLchar* name);
-    void use();
+    GLint getUniform(const GLchar* name) const;
+    void use() const;
 
-    GLboolean getBool(const GLchar* name);
-    GLfloat getFloat(const GLchar* name);
-    GLint getInt(const GLchar* name);
-    glm::vec3 getVec3(const GLchar* name);
+    GLboolean getBool(const GLchar* name) const;
+    GLfloat getFloat(const GLchar* name) const;
+    GLint getInt(const GLchar* name) const;
+    glm::vec3 getVec3(const GLchar* name) const;
 
     void setBool(const GLchar* name, const GLboolean &value);
     void setFloat(const GLchar* name, const GLfloat &value);
@@ -30,7 +30,7 @@ public:
     void setMat4(const GLchar* name, const glm::mat4 &value);
     void setVec3(const GLchar* name, const glm::vec3 &value);
 
-    std::vector<std::pair<std::string, std::string>> getUserSettableUniforms();
+    std::vector<std::pair<std::string, std::string>> getUserSettableUniforms() const;
 private:
     // Used for parsing shader code for user settable uniforms to be displayed in GUI
     std::vector<std::pair<std::string, std::string>> parseParams(const GLchar* shaderCode);

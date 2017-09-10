@@ -15,24 +15,20 @@ struct Vertex {
     glm::vec2 texCoords;
 };
 
-struct Texture {
-    GLuint id;
-    std::string type;
-    aiString path;
-};
-
+class Texture;
 class Shader;
 
 class Mesh {
 public:
     std::vector<Vertex> m_Vertices;
     std::vector<GLuint> m_Indices;
-    std::vector <Texture> m_Textures;
+    std::vector <std::shared_ptr<Texture>> m_Textures;
 
-    Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
+    Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, 
+        std::vector<std::shared_ptr<Texture>> textures);
     ~Mesh();
 
-    GLuint getVAO();
+    GLuint getVAO() const;
 
     void render(std::shared_ptr<Shader> shader);
 private:

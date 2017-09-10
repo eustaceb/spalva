@@ -23,19 +23,19 @@ public:
     virtual void render() = 0;
 
     void setLabel(const std::string &label);
-    std::string getLabel();
+    std::string getLabel() const;
 
     void setPos(glm::vec3 pos);
-    glm::vec3 getPos();
+    glm::vec3 getPos() const;
 
     void setShader(std::shared_ptr<Shader> shader);
-    std::shared_ptr<Shader> getShader();
+    std::shared_ptr<Shader> getShader() const;
 
     void rotate(GLfloat angle, glm::vec3 axis);
     void scale(glm::vec3 axis);
 
     void setModelMatrix(glm::mat4 model);
-    glm::mat4 getModelMatrix();
+    glm::mat4 getModelMatrix() const;
 protected:
     std::string m_Label;
     std::shared_ptr<Shader> m_Shader;

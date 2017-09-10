@@ -12,7 +12,6 @@
 #include <glad/glad.h>
 
 class Shader;
-
 class LightCube : public Renderable {
 public:
     LightCube(std::shared_ptr<Shader> shader, const glm::vec3 &pos, const GLuint &index,
@@ -21,20 +20,20 @@ public:
 
     void render();
 
-    glm::vec3 getAmbient();
-    glm::vec3 getDiffuse();
-    glm::vec3 getSpecular();
+    glm::vec3 getAmbient() const;
+    glm::vec3 getDiffuse() const;
+    glm::vec3 getSpecular() const;
     void setAmbient(glm::vec3 ambient);
     void setDiffuse(glm::vec3 diffuse);
     void setSpecular(glm::vec3 specular);
 
     void addObserver(std::weak_ptr<LightModel> m);
 
-    GLfloat getConstant();
+    GLfloat getConstant() const;
     void setConstant(GLfloat constant);
-    GLfloat getLinear();
+    GLfloat getLinear() const;
     void setLinear(GLfloat linear);
-    GLfloat getQuadratic();
+    GLfloat getQuadratic() const;
     void setQuadratic(GLfloat quadratic);
 private:
     GLuint m_VBO, m_VAO;

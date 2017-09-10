@@ -1,11 +1,10 @@
 #include "InstancedModel.h"
-
+#include "../resourcing/Texture.h"
 
 InstancedModel::InstancedModel(std::shared_ptr<Shader> shader, const glm::vec3 & pos, 
     const GLchar * path, const unsigned int &count, const std::vector<glm::mat4> &modelMatrices, const std::string & label)
     : Model(shader, pos, path, label), m_Count(count)
 {
-    unsigned int buffer;
     glGenBuffers(1, &m_InstanceMatrixAB);
     glBindBuffer(GL_ARRAY_BUFFER, m_InstanceMatrixAB);
     glBufferData(GL_ARRAY_BUFFER, count * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
@@ -42,14 +41,14 @@ InstancedModel::~InstancedModel()
 void InstancedModel::render()
 {
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_TexturesLoaded[0].id);
+    m_TexturesLoaded[0]->bind();
 
-    for (int i = 0; i < m_Meshes.size(); i++) 
+    for (unsigned int i = 0; i < m_Meshes.size(); i++) 
     {
         glBindVertexArray(m_Meshes[i]->getVAO());
         glDrawElementsInstanced(GL_TRIANGLES, m_Meshes[i]->m_Indices.size(), 
             GL_UNSIGNED_INT, 0, m_Count);
     }
     glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    m_TexturesLoaded[0]->unbind();
 }

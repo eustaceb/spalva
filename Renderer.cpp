@@ -118,7 +118,7 @@ void Renderer::setScene(const std::string &name)
     m_Scene->activate();
 }
 
-GLFWwindow *Renderer::getWindow()
+GLFWwindow *Renderer::getWindow() const
 {
     return m_Window;
 }

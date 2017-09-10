@@ -17,6 +17,7 @@
 #include "Renderable.h"
 #include "Mesh.h"
 
+//class Texture;
 class Shader;
 
 class Model : public Renderable {
@@ -31,15 +32,14 @@ public:
 protected:
     std::vector<Mesh*> m_Meshes;
     std::string m_Directory;
-    std::vector<Texture> m_TexturesLoaded;
+    std::vector<std::shared_ptr<Texture>> m_TexturesLoaded;
 
     void loadModel(std::string path);
 private:
     void processNode(aiNode* node, const aiScene* scene);
     void processMesh(aiMesh* mesh, const aiScene* scene);
-    std::vector<Texture> loadMaterialTextures(aiMaterial* material, aiTextureType type,
-                                         std::string typeName);
-    GLuint load_texture(const char *filename, std::string directory);
+    std::vector<std::shared_ptr<Texture>> loadMaterialTextures(aiMaterial* material, 
+        aiTextureType type, std::string typeName);
 };
 
 #endif //_Model_H_

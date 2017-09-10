@@ -28,7 +28,7 @@ Camera::Camera(GLfloat posX, GLfloat posY, GLfloat posZ,
     this->updateCameraVectors();
 }
 
-glm::mat4 Camera::getViewMatrix()
+glm::mat4 Camera::getViewMatrix() const
 {
     return glm::lookAt(this->position, this->position + this->front, this->up);
 }
@@ -77,7 +77,7 @@ void Camera::toggleControls()
     m_Controllable = !m_Controllable;
 }
 
-CameraState Camera::getState()
+CameraState Camera::getState() const
 {
     return CameraState(this->position, this->yaw, this->pitch);
 }
@@ -90,7 +90,7 @@ void Camera::setState(const CameraState & state)
     this->updateCameraVectors();
 }
 
-glm::vec3 Camera::getPos()
+glm::vec3 Camera::getPos() const
 {
     return this->position;
 }

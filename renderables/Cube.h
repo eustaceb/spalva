@@ -10,6 +10,7 @@
 #include "Renderable.h"
 
 class Shader;
+class Texture;
 
 class Cube : public Renderable {
 public:
@@ -20,7 +21,7 @@ public:
     void render();
 
 private:
-    GLuint m_Texture;
+    std::unique_ptr<Texture> m_Texture;
     GLuint m_VBO, m_VAO;
 };
 

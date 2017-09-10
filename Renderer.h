@@ -32,7 +32,7 @@ public:
     void toggleUI();
     void toggleWireframe();
 
-    GLFWwindow* getWindow();
+    GLFWwindow* getWindow() const;
 
 private:
     GLFWwindow* m_Window;

@@ -52,16 +52,16 @@ public:
            GLfloat upX, GLfloat upY, GLfloat upZ,
            GLfloat yaw = YAW, GLfloat pitch = PITCH);
 
-    glm::mat4 getViewMatrix();
+    glm::mat4 getViewMatrix() const;
     void processKeyboard(CameraMovement direction, GLfloat deltaTime);
     void processMouseMovement(GLfloat xOffset, GLfloat yOffset, GLboolean constrainPitch = true);
     void processMouseScroll(GLfloat yOffset);
     void toggleControls();
 
-    CameraState getState();
+    CameraState getState() const;
     void setState(const CameraState &state);
 
-    glm::vec3 getPos();
+    glm::vec3 getPos() const;
     void setPos(const glm::vec3 &value);
     //void debug();
 

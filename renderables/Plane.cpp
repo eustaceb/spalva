@@ -4,11 +4,7 @@
 #include <iostream>
 
 #include "../Helpers.h"
-/*#include <glad/glad.h>
-#include <glm/common.hpp>
-#include <glm/gtc/type_ptr.hpp>*/
-
-//#include "../Shader.h"
+#include "../resourcing/Texture.h"
 
 Plane::Plane(std::shared_ptr<Shader> shader, const glm::vec3 & pos, const std::string &texturePath, 
     const float &width, const float &length, const std::string & label)
@@ -45,21 +41,23 @@ Plane::Plane(std::shared_ptr<Shader> shader, const glm::vec3 & pos, const std::s
 
     glBindVertexArray(0);
 
-    m_Texture = Helpers::loadTexture(texturePath);
+    m_Texture = std::make_unique<Texture>(texturePath, "regular");
 }
 
 Plane::~Plane()
 {
     glDeleteVertexArrays(1, &m_VAO);
     glDeleteBuffers(1, &m_VBO);
-    glDeleteTextures(1, &m_Texture);
 }
 
 void Plane::render()
 {
     glBindVertexArray(m_VAO);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_Texture);
+    if (m_Texture.get())
+    {
+        glActiveTexture(GL_TEXTURE0);
+        m_Texture->bind();
+    }
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
 }
