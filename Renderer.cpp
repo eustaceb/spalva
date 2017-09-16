@@ -6,8 +6,7 @@
 
 #include <iostream>
 #include <cmath>
-// GLFW and GLAD
-//#define GLFW_DLL
+
 #include "imgui/imgui.h"
 #include "imgui/Imgui_Impl.h"
 
@@ -103,6 +102,11 @@ void Renderer::render(glm::mat4 &projection, glm::mat4 &view)
         }
     }
     glfwSwapBuffers(m_Window);
+}
+
+void Renderer::update(GLfloat deltaTime)
+{
+    m_Scene->update(deltaTime);
 }
 
 void Renderer::addScene(const std::string &name, std::shared_ptr<Scene> scene)

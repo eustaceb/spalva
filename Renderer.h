@@ -9,6 +9,7 @@
 #include <map>
 #include <memory>
 
+#include <glad/glad.h>
 #include <glm/vec4.hpp>
 #include <glm/detail/type_mat.hpp>
 
@@ -25,6 +26,7 @@ public:
     ~Renderer();
 
     void render(glm::mat4& projection, glm::mat4& view);
+    void update(GLfloat deltaTime);
 
     void addScene(const std::string &name, std::shared_ptr<Scene> scene);
     void setScene(const std::string &name);

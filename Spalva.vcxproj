@@ -140,6 +140,7 @@
     <ClCompile Include="scenes\BasicScene.cpp" />
     <ClCompile Include="scenes\AdjustableScene.cpp" />
     <ClCompile Include="scenes\InstancingScene.cpp" />
+    <ClCompile Include="scenes\ParticlesScene.cpp" />
     <ClCompile Include="scenes\Scene.cpp" />
     <ClCompile Include="scenes\SkyboxScene.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="scenes\BasicScene.h" />
     <ClInclude Include="scenes\AdjustableScene.h" />
     <ClInclude Include="scenes\InstancingScene.h" />
+    <ClInclude Include="scenes\ParticlesScene.h" />
     <ClInclude Include="scenes\Scene.h" />
     <ClInclude Include="scenes\SkyboxScene.h" />
     <ClInclude Include="Shader.h" />
@@ -181,6 +183,7 @@
     <None Include="imgui\.travis.yml" />
     <None Include="imgui\LICENSE" />
     <None Include="imgui\README.md" />
+    <None Include="README.md" />
     <None Include="shaders\asteroidShader.vert" />
     <None Include="shaders\blinnPhong.frag" />
     <None Include="shaders\blinnPhong.vert" />
@@ -192,6 +195,14 @@
     <None Include="shaders\modelShader.vert" />
     <None Include="shaders\nanoShader.frag" />
     <None Include="shaders\nanoShader.vert" />
+    <None Include="shaders\particles.frag">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="shaders\particles.vert">
+      <SubType>
+      </SubType>
+    </None>
     <None Include="shaders\reflective.frag" />
     <None Include="shaders\reflective.vert" />
     <None Include="shaders\refractive.frag" />

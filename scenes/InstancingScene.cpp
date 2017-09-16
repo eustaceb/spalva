@@ -57,14 +57,16 @@ InstancingScene::~InstancingScene()
 void InstancingScene::activate()
 {
     Scene::activate();
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
     glClearColor(0.2f, 0.2f, 0.0f, 1.0f);
 }
 
 void InstancingScene::deactivate()
 {
     Scene::deactivate();
-    glDisable(GL_DEPTH_TEST);
+    //glDisable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
     glClearColor(0.f, 0.f, 0.f, 1.0f);
 }
 

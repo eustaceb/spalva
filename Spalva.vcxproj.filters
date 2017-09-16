@@ -117,6 +117,9 @@
     <ClCompile Include="renderables\BillboardParticles.cpp">
       <Filter>Source Files\renderables</Filter>
     </ClCompile>
+    <ClCompile Include="scenes\ParticlesScene.cpp">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -209,6 +212,9 @@
     <ClInclude Include="renderables\BillboardParticles.h">
       <Filter>Header Files\renderables</Filter>
     </ClInclude>
+    <ClInclude Include="scenes\ParticlesScene.h">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\lampShader.frag">
@@ -280,5 +286,12 @@
     <None Include="shaders\plainTextured.vert">
       <Filter>Source Files\shaders</Filter>
     </None>
+    <None Include="shaders\particles.vert">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\particles.frag">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="README.md" />
   </ItemGroup>
 </Project>

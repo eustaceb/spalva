@@ -29,6 +29,7 @@
 #include "scenes/SkyboxScene.h"
 #include "scenes/InstancingScene.h"
 #include "scenes/AdvancedLightningScene.h"
+#include "scenes/ParticlesScene.h"
 
 void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -66,26 +67,29 @@ int main()
     renderer.addScene("Instancing Scene", instancingScene);
     std::shared_ptr<Scene> advancedLightningScene = std::make_shared<AdvancedLightningScene>(camera);
     renderer.addScene("Advanced Lightning Scene", advancedLightningScene);
+    std::shared_ptr<Scene> particlesScene = std::make_shared<ParticlesScene>(camera);
+    renderer.addScene("Particles Scene", particlesScene);
 
-    GLfloat lastFrame = 1.0f, deltaTime = 1.0f;
+    GLfloat lastFrame = 1.0f, deltaTime;
+    GLfloat aspectRatio = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
     glm::mat4 projection, view;
 
     glfwSwapInterval(1);
 
     while (!glfwWindowShouldClose(window))
     {
-        // Set frame time
         GLfloat currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        // Check and call events
+        // Check for events, move camera and update current scene
         glfwPollEvents();
         doMovement(deltaTime);
+        renderer.update(deltaTime);
 
-        GLfloat ratio = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
-        projection = glm::perspective(camera->zoom, ratio, 0.1f, 100.0f);
+        // Generate view and projection matrices
         view = camera->getViewMatrix();
+        projection = glm::perspective(camera->zoom, aspectRatio, 0.1f, 100.0f);
 
         renderer.render(projection, view);
     }

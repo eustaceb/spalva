@@ -26,6 +26,9 @@ Spalva is a C++ OpenGL rendering engine that provides the infrastructure for dev
 
 ## Examples
 **Spalva** comes with multiple simulations that serve as an example.
+### Particles scene
+A particle emitter in a black background with many options to configure.
+![Particles scene](https://i.imgur.com/Z9m2xqy.gif)
 ### Basic scene
 Contains a skybox, loaded model and multiple configurable point lights with Phong shading and attenuation.
 ![Basic scene](http://i.imgur.com/s6LB6YC.png)

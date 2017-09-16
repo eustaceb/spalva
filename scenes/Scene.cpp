@@ -18,3 +18,8 @@ void Scene::deactivate()
 {
     m_CameraState = m_Camera->getState();
 }
+
+void Scene::update(GLfloat deltaTime)
+{
+    
+}

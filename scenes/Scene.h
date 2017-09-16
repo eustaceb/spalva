@@ -20,6 +20,8 @@ public:
 
     virtual void activate(); // restores camera state
     virtual void deactivate(); // captures camera state
+
+    virtual void update(GLfloat deltaTime);
     virtual void render(glm::mat4 &projection, glm::mat4 &view) = 0;
     virtual void renderGUI() = 0;
 protected:
