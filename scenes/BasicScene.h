@@ -13,7 +13,7 @@ class BasicScene :
     public Scene
 {
 public:
-    BasicScene(std::shared_ptr<Camera> camera);
+    BasicScene(std::shared_ptr<Camera> camera, const std::string & name);
 
     void activate();
     void deactivate();

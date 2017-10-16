@@ -10,7 +10,7 @@ class ParticlesScene :
     public Scene
 {
 public:
-    ParticlesScene(std::shared_ptr<Camera> camera);
+    ParticlesScene(std::shared_ptr<Camera> camera, const std::string & name);
     ~ParticlesScene();
 
     void activate();

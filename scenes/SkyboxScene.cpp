@@ -7,7 +7,7 @@
 #include <iostream>
 
 #include "../Camera.h"
-#include "../Shader.h"
+#include "../resourcing/Shader.h"
 #include "../renderables/Cube.h"
 
 #include "../imgui/imgui.h"
@@ -16,8 +16,8 @@
 #include "../Definitions.h"
 #include "../GUI.h"
 
-SkyboxScene::SkyboxScene(std::shared_ptr<Camera> camera)
-    : Scene(camera)
+SkyboxScene::SkyboxScene(std::shared_ptr<Camera> camera, const std::string & name)
+    : Scene(camera, name)
 {
     m_Camera = camera;
     auto skyboxShader = std::make_shared<Shader>("shaders/skybox.vert", "shaders/skybox.frag");

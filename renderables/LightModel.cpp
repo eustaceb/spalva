@@ -71,7 +71,7 @@ void LightModel::lightUpdated(GLuint index)
             diffuse = light->getDiffuse(), specular = light->getSpecular();
         std::ostringstream lightName;
         lightName << "pointLights[" << index << "].";
-        // TODO: Validate this, might cause mem issues
+        // @TODO: Validate this, might cause mem issues
         glUniform3f(m_Shader->getUniform((lightName.str() + "position").c_str()), pos.x, pos.y, pos.z);
         glUniform3f(m_Shader->getUniform((lightName.str() + "ambient").c_str()), ambient.r, ambient.g, ambient.b);
         glUniform3f(m_Shader->getUniform((lightName.str() + "diffuse").c_str()), diffuse.r, diffuse.g, diffuse.b);

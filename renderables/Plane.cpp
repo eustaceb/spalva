@@ -4,6 +4,8 @@
 #include <iostream>
 
 #include "../Helpers.h"
+
+#include "../resourcing/ResourceManager.h"
 #include "../resourcing/Texture.h"
 
 Plane::Plane(std::shared_ptr<Shader> shader, const glm::vec3 & pos, const std::string &texturePath, 
@@ -41,7 +43,8 @@ Plane::Plane(std::shared_ptr<Shader> shader, const glm::vec3 & pos, const std::s
 
     glBindVertexArray(0);
 
-    m_Texture = std::make_unique<Texture>(texturePath, "regular");
+    m_Texture = std::make_shared<Texture>(texturePath, "regular");
+    ResourceManager::instance()->addTexture(m_Texture);
 }
 
 Plane::~Plane()

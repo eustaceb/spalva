@@ -11,6 +11,7 @@
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
 
+#include "../resourcing/ResourceManager.h"
 #include "../resourcing/Texture.h"
 
 Model::Model(std::shared_ptr<Shader> shader, const glm::vec3 &pos, 
@@ -35,7 +36,7 @@ void Model::loadModel(std::string path)
 
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
-        std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
+        std::cout << "ERR::Model::loadModel::" << importer.GetErrorString() << std::endl;
         return;
     }
     this->m_Directory = path.substr(0, path.find_last_of('/'));
@@ -112,6 +113,7 @@ std::vector<std::shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial *ma
         {
             std::string fullPath = std::string(m_Directory + "/" + path.C_Str());
             auto tex = std::make_shared<Texture>(fullPath, typeName, GL_RGB, GL_RGB);
+            ResourceManager::instance()->addTexture(tex);
             textures.push_back(tex);
             m_TexturesLoaded.push_back(tex);
         }

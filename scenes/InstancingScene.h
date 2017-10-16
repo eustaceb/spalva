@@ -10,7 +10,7 @@ class InstancingScene :
     public Scene
 {
 public:
-    InstancingScene(std::shared_ptr<Camera> camera);
+    InstancingScene(std::shared_ptr<Camera> camera, const std::string & name);
     ~InstancingScene();
 
     void activate();

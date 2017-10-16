@@ -4,7 +4,7 @@
 #include "../renderables/Renderable.h"
 #include "../renderables/Plane.h"
 #include "../renderables/Cube.h"
-#include "../Shader.h"
+#include "../resourcing/Shader.h"
 
 #include "../imgui/imgui.h"
 #include "../imgui/Imgui_Impl.h"
@@ -12,8 +12,8 @@
 #include "../Definitions.h"
 #include "../GUI.h"
 
-AdvancedLightningScene::AdvancedLightningScene(std::shared_ptr<Camera> camera)
-    : Scene(camera), m_LightPos(-2.0f, 4.0f, -1.0f)
+AdvancedLightningScene::AdvancedLightningScene(std::shared_ptr<Camera> camera, const std::string & name)
+    : Scene(camera, name), m_LightPos(-2.0f, 4.0f, -1.0f)
 {
     // Setup directional light
     m_DirLight.nearPlane = 1.0f;
@@ -101,7 +101,7 @@ void AdvancedLightningScene::activate()
 
 void AdvancedLightningScene::deactivate()
 {
-    Scene::activate();
+    Scene::deactivate();
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
     glClearColor(0.f, 0.f, 0.f, 1.0f);

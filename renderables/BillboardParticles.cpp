@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "../Shader.h"
+#include "../resourcing/Shader.h"
 
 BillboardParticles::BillboardParticles(std::shared_ptr<Shader> shader, const glm::vec3 &pos, 
     const float & size, const size_t & count, const float & speed, const glm::vec3 & color, 

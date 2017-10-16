@@ -14,8 +14,8 @@
 #include "../Definitions.h"
 #include "../GUI.h"
 
-InstancingScene::InstancingScene(std::shared_ptr<Camera> camera)
-    : Scene(camera)
+InstancingScene::InstancingScene(std::shared_ptr<Camera> camera, const std::string & name)
+    : Scene(camera, name)
 {
     auto planetShader = std::make_shared<Shader>("shaders/modelShader.vert", "shaders/modelShader.frag");
     m_Shaders.insert(std::make_pair(std::string("PlanetShader"), planetShader));
@@ -57,7 +57,7 @@ InstancingScene::~InstancingScene()
 void InstancingScene::activate()
 {
     Scene::activate();
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glClearColor(0.2f, 0.2f, 0.0f, 1.0f);
 }
@@ -65,7 +65,7 @@ void InstancingScene::activate()
 void InstancingScene::deactivate()
 {
     Scene::deactivate();
-    //glDisable(GL_DEPTH_TEST);
+    glDisable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
     glClearColor(0.f, 0.f, 0.f, 1.0f);
 }
@@ -81,6 +81,7 @@ void InstancingScene::render(glm::mat4 & projection, glm::mat4 & view)
         currentShader->setMat4("view", view);
         currentShader->setMat4("projection", projection);
 
+        // if has model in current shader
         if ((*it)->getLabel() != "Asteroid")
         {
             glm::mat4 model = (*it)->getModelMatrix();

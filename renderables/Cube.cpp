@@ -4,6 +4,8 @@
 
 #include "Cube.h"
 #include "../Helpers.h"
+
+#include "../resourcing/ResourceManager.h"
 #include "../resourcing/Texture.h"
 
 
@@ -77,7 +79,8 @@ Cube::Cube(std::shared_ptr<Shader> shader, const glm::vec3 &pos, const std::stri
         // Texture
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-        m_Texture = std::make_unique<Texture>(texturePath, "regular");
+        m_Texture = std::make_shared<Texture>(texturePath, "regular");
+        ResourceManager::instance()->addTexture(m_Texture);
     }
     glBindVertexArray(0);
 }

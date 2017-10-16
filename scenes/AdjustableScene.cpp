@@ -7,7 +7,7 @@
 #include "../GUI.h"
 
 #include "../renderables/Renderable.h"
-#include "../Shader.h"
+#include "../resourcing/Shader.h"
 
 #include "../imgui/imgui.h"
 #include "../imgui/Imgui_Impl.h"
@@ -17,8 +17,8 @@
 #include "../renderables/Plane.h"
 #include "../renderables/Model.h"
 
-AdjustableScene::AdjustableScene(std::shared_ptr<Camera> camera)
-    : Scene(camera)
+AdjustableScene::AdjustableScene(std::shared_ptr<Camera> camera, const std::string & name)
+    : Scene(camera, name)
 {
     m_Shaders.insert(std::make_pair("default", 
         std::make_shared<Shader>("shaders/lampShader.vert", "shaders/lampShader.frag")));

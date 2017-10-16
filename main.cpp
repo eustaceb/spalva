@@ -2,27 +2,14 @@
 #include <cmath>
 #include <memory>
 
-// ImgUi
-#include "imgui/imgui.h"
-#include "imgui/Imgui_Impl.h"
-//#define GLFW_DLL
-// GLFW and GLAD
-#include <glad/glad.h>
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-
-// GLM for maths
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 // Own classes
 #include "Definitions.h"
-#include "Shader.h"
+
 #include "Camera.h"
 #include "Renderer.h"
-#include "renderables/LightCube.h"
-#include "renderables/Cube.h"
-#include "renderables/Model.h"
 
 #include "scenes/BasicScene.h"
 #include "scenes/AdjustableScene.h"
@@ -56,19 +43,19 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
     //glfwSetScrollCallback(window, scroll_callback);
     
-    std::shared_ptr<Scene> scene = std::make_shared<BasicScene>(camera);
-    renderer.addScene("Basic Scene", scene);
+    std::shared_ptr<Scene> scene = std::make_shared<BasicScene>(camera, "Basic Scene");
+    renderer.addScene(scene);
     renderer.setScene("Basic Scene");
-    std::shared_ptr<Scene> adjustableScene = std::make_shared<AdjustableScene>(camera);
-    renderer.addScene("Adjustable Scene", adjustableScene);
-    std::shared_ptr<Scene> skyboxScene = std::make_shared<SkyboxScene>(camera);
-    renderer.addScene("Skybox Scene", skyboxScene);
-    std::shared_ptr<Scene> instancingScene = std::make_shared<InstancingScene>(camera);
-    renderer.addScene("Instancing Scene", instancingScene);
-    std::shared_ptr<Scene> advancedLightningScene = std::make_shared<AdvancedLightningScene>(camera);
-    renderer.addScene("Advanced Lightning Scene", advancedLightningScene);
-    std::shared_ptr<Scene> particlesScene = std::make_shared<ParticlesScene>(camera);
-    renderer.addScene("Particles Scene", particlesScene);
+    std::shared_ptr<Scene> adjustableScene = std::make_shared<AdjustableScene>(camera, "Adjustable Scene");
+    renderer.addScene(adjustableScene);
+    std::shared_ptr<Scene> skyboxScene = std::make_shared<SkyboxScene>(camera, "Skybox Scene");
+    renderer.addScene(skyboxScene);
+    std::shared_ptr<Scene> instancingScene = std::make_shared<InstancingScene>(camera, "Instancing Scene");
+    renderer.addScene(instancingScene);
+    std::shared_ptr<Scene> advancedLightningScene = std::make_shared<AdvancedLightningScene>(camera, "Advanced Lightning Scene");
+    renderer.addScene(advancedLightningScene);
+    std::shared_ptr<Scene> particlesScene = std::make_shared<ParticlesScene>(camera, "Particles Scene");
+    renderer.addScene(particlesScene);
 
     GLfloat lastFrame = 1.0f, deltaTime;
     GLfloat aspectRatio = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;

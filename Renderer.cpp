@@ -15,7 +15,7 @@
 
 #include <algorithm>
 
-#include "Shader.h"
+#include "resourcing/Shader.h"
 #include "renderables/Renderable.h"
 #include "scenes/Scene.h"
 
@@ -109,10 +109,10 @@ void Renderer::update(GLfloat deltaTime)
     m_Scene->update(deltaTime);
 }
 
-void Renderer::addScene(const std::string &name, std::shared_ptr<Scene> scene)
+void Renderer::addScene(std::shared_ptr<Scene> scene)
 {
-    m_Scenes.insert(std::make_pair(name, scene));
-    m_SceneLabels.push_back(name);
+    m_Scenes.insert(std::make_pair(scene->getName(), scene));
+    m_SceneLabels.push_back(scene->getName());
 }
 
 void Renderer::setScene(const std::string &name)

@@ -3,7 +3,7 @@
 //
 
 #include "Mesh.h"
-#include "../Shader.h"
+#include "../resourcing/Shader.h"
 #include "../resourcing/Texture.h"
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, 

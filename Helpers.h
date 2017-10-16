@@ -2,12 +2,30 @@
 #ifndef _Helpers_H_
 #define _Helpers_H_
 
-/*#include <string>
+#include <sys/stat.h>
 #include <iostream>
+/*#include <string>
+
 #include <stb/stb_image.h>
 #include <glad/glad.h>*/
 
 namespace Helpers {
+    inline double bytesToMB(unsigned long long bytes)
+    {
+        return static_cast<double>(bytes) / 1000000;
+    }
+    inline __int64 fileSize(const std::string & path)
+    {
+        struct __stat64 buffer;
+        int err = _stat64(path.c_str(), &buffer);
+        if (err != 0)
+        {
+            std::cout << "ERR::Helpers::fileSize::Could not fetch size, code "
+            << err << std::endl;
+            return 0;
+        }
+        return buffer.st_size;
+    }
 /*
     inline GLuint loadTexture(const std::string &path, const bool &gammaCorrected = false)
     {

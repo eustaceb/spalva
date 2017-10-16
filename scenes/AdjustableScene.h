@@ -8,7 +8,7 @@ class AdjustableScene :
     public Scene
 {
 public:
-    AdjustableScene(std::shared_ptr<Camera> camera);
+    AdjustableScene(std::shared_ptr<Camera> camera, const std::string & name);
     ~AdjustableScene();
 
     void activate();

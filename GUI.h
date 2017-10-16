@@ -7,11 +7,11 @@
 #include "imgui/imgui.h"
 #include "imgui/Imgui_Impl.h"
 
-#include "Shader.h"
+#include "resourcing/Shader.h"
 
 namespace GUI {
     const static float MARGIN = 10;
-
+    // @TODO: Remove inline
     inline void renderShaderOptions(Shader* shader, std::vector<std::pair<std::string, std::string>> uniforms)
     {
         if (uniforms.size() > 0)

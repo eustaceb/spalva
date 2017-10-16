@@ -18,7 +18,7 @@ public:
 
     void render();
 private:
-    std::unique_ptr<Texture> m_Texture;
+    std::shared_ptr<Texture> m_Texture;
     GLuint m_VBO, m_VAO;
 };
 

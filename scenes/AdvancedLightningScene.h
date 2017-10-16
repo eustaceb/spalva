@@ -12,7 +12,7 @@ class AdvancedLightningScene :
     public Scene
 {
 public:
-    AdvancedLightningScene(std::shared_ptr<Camera> camera);
+    AdvancedLightningScene(std::shared_ptr<Camera> camera, const std::string & name);
     ~AdvancedLightningScene();
 
     void activate();

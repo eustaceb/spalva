@@ -14,8 +14,8 @@
 #include "../GUI.h"
 
 
-BasicScene::BasicScene(std::shared_ptr<Camera> camera)
-    : Scene(camera)
+BasicScene::BasicScene(std::shared_ptr<Camera> camera, const std::string & name)
+    : Scene(camera, name)
 {
     // Setup model
     auto shader = std::make_shared<Shader>("shaders/nanoShader.vert", "shaders/nanoShader.frag");
@@ -140,7 +140,7 @@ void BasicScene::renderGUI()
             {
                 if ((*it)->getLabel() == "LightCube")
                 {
-                    LightCube* light = (LightCube*)(*it).get();
+                    LightCube* light = dynamic_cast<LightCube*>((*it).get());
                     if (ambientField) light->setAmbient(glm::vec3(ambient[0], ambient[1], ambient[2]));
                     if (diffuseField) light->setDiffuse(glm::vec3(diffuse[0], diffuse[1], diffuse[2]));
                     if (specularField) light->setSpecular(glm::vec3(specular[0], specular[1], specular[2]));

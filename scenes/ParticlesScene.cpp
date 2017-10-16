@@ -1,15 +1,15 @@
 #include "ParticlesScene.h"
 
 #include "../renderables/BillboardParticles.h"
-#include "../Shader.h"
+#include "../resourcing/Shader.h"
 
 #include "../imgui/imgui.h"
 #include "../imgui/Imgui_Impl.h"
 #include "../Definitions.h"
 #include "../GUI.h"
 
-ParticlesScene::ParticlesScene(std::shared_ptr<Camera> camera)
-    : Scene(camera)
+ParticlesScene::ParticlesScene(std::shared_ptr<Camera> camera, const std::string & name)
+    : Scene(camera, name)
 {
     auto particleShader = std::make_shared<Shader>("shaders/particles.vert", "shaders/particles.frag");
     m_Shaders.insert(std::make_pair(std::string("Particles"), particleShader));

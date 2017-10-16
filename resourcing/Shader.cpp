@@ -48,7 +48,7 @@ Shader::Shader(const GLchar *vertexPath, const GLchar *fragmentPath) {
     glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED" << std::endl << infoLog << std::endl;
+        std::cout << "ERR::SHADER::VERTEX::COMPILATION_FAILED" << std::endl << infoLog << std::endl;
     }
     // Fragment
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
@@ -58,7 +58,7 @@ Shader::Shader(const GLchar *vertexPath, const GLchar *fragmentPath) {
     glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
     if (!success) {
         glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED" << std::endl << infoLog << std::endl;
+        std::cout << "ERR::SHADER::FRAGMENT::COMPILATION_FAILED" << std::endl << infoLog << std::endl;
     }
     // Link
     this->program = glCreateProgram();
@@ -68,7 +68,7 @@ Shader::Shader(const GLchar *vertexPath, const GLchar *fragmentPath) {
     glGetProgramiv(this->program, GL_LINK_STATUS, &success);
     if (!success) {
         glGetProgramInfoLog(this->program, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED" << std::endl << infoLog << std::endl;
+        std::cout << "ERR::SHADER::PROGRAM::LINKING_FAILED" << std::endl << infoLog << std::endl;
     }
 
     // Parse all user-settable uniform values for the shader configuration GUI

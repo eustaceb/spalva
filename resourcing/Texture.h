@@ -2,13 +2,10 @@
 #ifndef _Texture_H_
 #define _Texture_H_
 
-
 #include <string>
 #include <glad/glad.h>
-/**
-    This might end up as the base class for Texture2D, Texture3D and Cubemaps in future 
-**/
-class Texture
+#include "Resource.h"
+class Texture : public Resource
 {
 public:
     Texture(const std::string &path, const std::string &type, 
@@ -16,6 +13,9 @@ public:
     Texture(const std::string &path, const std::string &type,
         const GLenum &format, const GLenum &internalFormat, const std::string &label = "Texture");
     ~Texture();
+
+    void load();
+    void unload();
 
     void bind();
     void unbind();
@@ -26,13 +26,13 @@ public:
     std::string getType() const;
 private:
     void loadTexture(const std::string &path, const bool &gammaCorrected = false);
-    void loadTexture(const std::string & path, const GLenum & format, const GLenum & internalFormat);
 
     GLuint m_Id;
     std::string m_Path;
     std::string m_Label;
     std::string m_Type;
 
+    bool m_GammaCorrected;
     GLenum m_Format, m_InternalFormat;
     GLint m_Width, m_Height, m_Components;
 };

@@ -28,7 +28,7 @@ public:
     void render(glm::mat4& projection, glm::mat4& view);
     void update(GLfloat deltaTime);
 
-    void addScene(const std::string &name, std::shared_ptr<Scene> scene);
+    void addScene(std::shared_ptr<Scene> scene);
     void setScene(const std::string &name);
 
     void toggleUI();

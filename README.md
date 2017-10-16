@@ -2,6 +2,7 @@
 Spalva is a C++ OpenGL rendering engine that provides the infrastructure for developing and running visual simulations. It is in continuous development as I am learning new techniques in computer graphics, therefore the project is subject to frequent changes and refactoring. The target audience is someone who is starting OpenGL programming and is looking for examples or a straightforward environment to develop in.
 
 ### Key Features
+ * Resource management
  * Multiple scene support
  * Model loading
  * Scene-specific easily configurable GUI
@@ -23,6 +24,10 @@ Spalva is a C++ OpenGL rendering engine that provides the infrastructure for dev
  * [Assimp](https://github.com/assimp/assimp) (model loading)
  * [ImGUI](https://github.com/ocornut/imgui) (comes with Spalva)
 
+## Resource Manager
+The **Resource Manager** is a key component that divides resources into resource groups, allows lazy loading and enables caching. A specific memory limit (cap) and a caching flag has to be set in Definitions.h for it to work properly. 
+If the memory limit is reached, a LRU optimization is launched, removing the least recently used inactive resource group. Each resource has to be registered with the manager on instantiation as resources are loaded through it.
+![ResourceManager](https://i.imgur.com/I8ObDOm.png)
 
 ## Examples
 **Spalva** comes with multiple simulations that serve as an example.

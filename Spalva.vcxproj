@@ -135,6 +135,7 @@
     <ClCompile Include="renderables\Renderable.cpp" />
     <ClCompile Include="renderables\Skybox.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="resourcing\ResourceManager.cpp" />
     <ClCompile Include="resourcing\Texture.cpp" />
     <ClCompile Include="scenes\AdvancedLightningScene.cpp" />
     <ClCompile Include="scenes\BasicScene.cpp" />
@@ -143,7 +144,7 @@
     <ClCompile Include="scenes\ParticlesScene.cpp" />
     <ClCompile Include="scenes\Scene.cpp" />
     <ClCompile Include="scenes\SkyboxScene.cpp" />
-    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="resourcing\Shader.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,8 @@
     <ClInclude Include="renderables\Renderable.h" />
     <ClInclude Include="renderables\Skybox.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="resourcing\Resource.h" />
+    <ClInclude Include="resourcing\ResourceManager.h" />
     <ClInclude Include="resourcing\Texture.h" />
     <ClInclude Include="scenes\AdvancedLightningScene.h" />
     <ClInclude Include="scenes\BasicScene.h" />
@@ -177,7 +180,7 @@
     <ClInclude Include="scenes\ParticlesScene.h" />
     <ClInclude Include="scenes\Scene.h" />
     <ClInclude Include="scenes\SkyboxScene.h" />
-    <ClInclude Include="Shader.h" />
+    <ClInclude Include="resourcing\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui\.travis.yml" />

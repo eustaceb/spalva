@@ -12,7 +12,7 @@ class SkyboxScene :
     public Scene
 {
 public:
-    SkyboxScene(std::shared_ptr<Camera> camera);
+    SkyboxScene(std::shared_ptr<Camera> camera, const std::string & name);
     ~SkyboxScene();
 
     void activate();

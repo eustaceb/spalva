@@ -13,7 +13,7 @@
 #include <memory>
 #include <assimp/scene.h>
 
-#include "../Shader.h"
+#include "../resourcing/Shader.h"
 #include "Renderable.h"
 #include "Mesh.h"
 
