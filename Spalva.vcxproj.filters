@@ -123,6 +123,9 @@
     <ClCompile Include="resourcing\Shader.cpp">
       <Filter>Source Files\resourcing</Filter>
     </ClCompile>
+    <ClCompile Include="resourcing\Resource.cpp">
+      <Filter>Source Files\resourcing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">

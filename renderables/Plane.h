@@ -18,7 +18,7 @@ public:
 
     void render();
 private:
-    std::shared_ptr<Texture> m_Texture;
+    unsigned int m_Texture;
     GLuint m_VBO, m_VAO;
 };
 

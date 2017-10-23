@@ -135,6 +135,7 @@
     <ClCompile Include="renderables\Renderable.cpp" />
     <ClCompile Include="renderables\Skybox.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="resourcing\Resource.cpp" />
     <ClCompile Include="resourcing\ResourceManager.cpp" />
     <ClCompile Include="resourcing\Texture.cpp" />
     <ClCompile Include="scenes\AdvancedLightningScene.cpp" />

@@ -6,6 +6,8 @@
 #include "../Definitions.h"
 #include "../GUI.h"
 
+#include "../resourcing/ResourceManager.h"
+
 #include "../renderables/Renderable.h"
 #include "../resourcing/Shader.h"
 
@@ -23,7 +25,7 @@ AdjustableScene::AdjustableScene(std::shared_ptr<Camera> camera, const std::stri
     m_Shaders.insert(std::make_pair("default", 
         std::make_shared<Shader>("shaders/lampShader.vert", "shaders/lampShader.frag")));
     m_Shaders.insert(std::make_pair("model", 
-        std::make_shared<Shader>("shaders/nanoShader.vert", "shaders/nanoShader.frag")));
+        std::make_shared<Shader>("shaders/modelShader.vert", "shaders/modelShader.frag")));
 
     auto planeShader = std::make_shared<Shader>("shaders/plainTextured.vert", "shaders/plainTextured.frag");
     planeShader->use();
@@ -39,12 +41,14 @@ void AdjustableScene::activate()
 {
     Scene::activate();
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+    glEnable(GL_DEPTH_TEST);
 }
 
 void AdjustableScene::deactivate()
 {
     Scene::deactivate();
     glClearColor(0.f, 0.f, 0.f, 1.0f);
+    glDisable(GL_DEPTH_TEST);
 }
 
 void AdjustableScene::render(glm::mat4 & projection, glm::mat4 & view)
@@ -85,6 +89,7 @@ void AdjustableScene::renderGUI()
         {
             glm::vec3 coords(cubePos[0], cubePos[1], cubePos[2]);
             auto cube = std::make_shared<LightCube>(m_Shaders.at("default"), coords, 0);
+            ResourceManager::instance()->reloadActiveGroup();
             m_Renderables.push_back(cube);
         }
     }
@@ -98,6 +103,7 @@ void AdjustableScene::renderGUI()
             glm::vec3 coords(planePos[0], planePos[1], planePos[2]);
             auto plane = std::make_shared<Plane>(m_Shaders.at("plane"), coords,
                 "textures/wood.png", planeSize[0], planeSize[1]);
+            ResourceManager::instance()->reloadActiveGroup();
             m_Renderables.push_back(plane);
         }
     }
@@ -108,9 +114,10 @@ void AdjustableScene::renderGUI()
         if (ImGui::Button("Spawn Model", ImVec2(90, 20)))
         {
             glm::vec3 coords(modelPos[0], modelPos[1], modelPos[2]);
-            auto ourModel = std::make_shared<LightModel>(m_Shaders["model"], coords, 
-                "models/nanosuit/nanosuit.obj", m_Camera);
+            auto ourModel = std::make_shared<Model>(m_Shaders["model"], coords, 
+                "models/nanosuit/nanosuit.obj");
             ourModel->scale(glm::vec3(0.2f, 0.2f, 0.2f));
+            ResourceManager::instance()->reloadActiveGroup();
             m_Renderables.push_back(ourModel);
         }
     }

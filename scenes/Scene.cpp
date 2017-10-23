@@ -5,7 +5,7 @@ Scene::Scene(std::shared_ptr<Camera> camera, const std::string & name)
     : m_Camera(camera), m_CameraState(camera->getState()), m_Name(name)
 {
     ResourceManager::instance()->createGroup(m_Name);
-    ResourceManager::instance()->accessGroup(m_Name);
+    ResourceManager::instance()->bindGroup(m_Name);
 }
 
 Scene::~Scene()

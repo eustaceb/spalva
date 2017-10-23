@@ -22,10 +22,10 @@ class Mesh {
 public:
     std::vector<Vertex> m_Vertices;
     std::vector<GLuint> m_Indices;
-    std::vector <std::shared_ptr<Texture>> m_Textures;
+    std::vector <unsigned int> m_Textures;
 
     Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, 
-        std::vector<std::shared_ptr<Texture>> textures);
+        std::vector<unsigned int> textures);
     ~Mesh();
 
     GLuint getVAO() const;

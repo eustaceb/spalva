@@ -59,7 +59,7 @@ void Model::processMesh(aiMesh *mesh, const aiScene *scene)
 {
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
-    std::vector <std::shared_ptr<Texture>> textures;
+    std::vector <unsigned int> textures;
     // Process vertices
     for (GLuint i = 0; i < mesh->mNumVertices; i++)
     {
@@ -82,41 +82,26 @@ void Model::processMesh(aiMesh *mesh, const aiScene *scene)
     if (scene->mNumMaterials > 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        std::vector <std::shared_ptr<Texture>> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        auto diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        std::vector <std::shared_ptr<Texture>> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        auto specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
     m_Meshes.push_back(new Mesh(vertices, indices, textures));
 }
 
-std::vector<std::shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial *material, aiTextureType type, std::string typeName)
+std::vector<unsigned int> Model::loadMaterialTextures(aiMaterial *material, aiTextureType type, std::string typeName)
 {
-    std::vector <std::shared_ptr<Texture>> textures;
+    std::vector <unsigned int> textures;
     for (GLuint i = 0; i < material->GetTextureCount(type); i++)
     {
         aiString path;
         material->GetTexture(type, i, &path);
 
-        // Check if tex already registered
-        GLboolean skip = false;
-        for (auto it = m_TexturesLoaded.begin(); it != m_TexturesLoaded.end(); it++)
-        {
-            if (std::strcmp(path.C_Str(), (*it)->getPath().c_str()) == 0)
-            {
-                textures.push_back(*it);
-                skip = true;
-                break;
-            }
-        }
-        if (!skip)
-        {
-            std::string fullPath = std::string(m_Directory + "/" + path.C_Str());
-            auto tex = std::make_shared<Texture>(fullPath, typeName, GL_RGB, GL_RGB);
-            ResourceManager::instance()->addTexture(tex);
-            textures.push_back(tex);
-            m_TexturesLoaded.push_back(tex);
-        }
+        std::string fullPath = std::string(m_Directory + "/" + path.C_Str());
+        unsigned int tid = ResourceManager::instance()
+            ->createResource<Texture>(fullPath, typeName, GL_RGB, GL_RGB);
+        textures.push_back(tid);
     }
     return textures;
 }

@@ -12,12 +12,17 @@
 #include <glm/glm.hpp>
 #include <glad/glad.h>
 
+#include "Resource.h"
+
 class Shader {
 public:
-    GLuint program;
-    Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
+    Shader(std::string vertexPath, std::string fragmentPath);
+    ~Shader();
+
+    void load();
+
     GLint getUniform(const GLchar* name) const;
-    void use() const;
+    void use();
 
     GLboolean getBool(const GLchar* name) const;
     GLfloat getFloat(const GLchar* name) const;
@@ -32,6 +37,8 @@ public:
 
     std::vector<std::pair<std::string, std::string>> getUserSettableUniforms() const;
 private:
+    GLuint m_Program;
+    std::string m_VertexPath, m_FragmentPath;
     // Used for parsing shader code for user settable uniforms to be displayed in GUI
     std::vector<std::pair<std::string, std::string>> parseParams(const GLchar* shaderCode);
     std::pair<std::string, std::string> parseUniform(const std::string &uniform);

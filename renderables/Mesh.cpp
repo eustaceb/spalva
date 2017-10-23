@@ -3,11 +3,13 @@
 //
 
 #include "Mesh.h"
-#include "../resourcing/Shader.h"
+
+#include "../resourcing/ResourceManager.h"
 #include "../resourcing/Texture.h"
+#include "../resourcing/Shader.h"
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, 
-    std::vector<std::shared_ptr<Texture>> textures)
+    std::vector<unsigned int> textures)
     : m_Vertices(vertices), m_Indices(indices), m_Textures(textures)
 {
     this->setupMesh();
@@ -46,13 +48,17 @@ void Mesh::render(std::shared_ptr<Shader> shader)
     GLuint specularCount = 1, diffuseCount = 1;
     for (GLuint i = 0; i < m_Textures.size(); i++)
     {
+        Texture* tex = ResourceManager::instance()->getResource<Texture>(m_Textures[i]);
+
         glActiveTexture(GL_TEXTURE0 + i);
-        std::string texType = m_Textures[i]->getType();
+        std::string texType = tex->getType();
         if (texType == "texture_diffuse")
-            glUniform1i(shader->getUniform(("material." + texType + std::to_string(diffuseCount++)).c_str()), i);
+            shader->setInt(
+            ("material." + texType + std::to_string(diffuseCount++)).c_str(), i);
         else if (texType == "texture_specular")
-            glUniform1i(shader->getUniform(("material." + texType + std::to_string(specularCount++)).c_str()), i);
-        m_Textures[i]->bind();
+            shader->setInt(
+            ("material." + texType + std::to_string(specularCount++)).c_str(), i);
+        tex->bind();
     }
     glActiveTexture(GL_TEXTURE0);
 
@@ -66,7 +72,7 @@ void Mesh::render(std::shared_ptr<Shader> shader)
     for (GLuint i = 0; i < m_Textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
-        m_Textures[i]->unbind();
+        Texture::unbind();
     }
 }
 

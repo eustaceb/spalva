@@ -10,7 +10,7 @@
 
 Plane::Plane(std::shared_ptr<Shader> shader, const glm::vec3 & pos, const std::string &texturePath, 
     const float &width, const float &length, const std::string & label)
-    : Renderable(shader, pos, label)
+    : Renderable(shader, pos, label), m_Texture(0)
 {
     float planeVertices[] = {
         // positions            // normals         // texcoords
@@ -43,8 +43,7 @@ Plane::Plane(std::shared_ptr<Shader> shader, const glm::vec3 & pos, const std::s
 
     glBindVertexArray(0);
 
-    m_Texture = std::make_shared<Texture>(texturePath, "regular");
-    ResourceManager::instance()->addTexture(m_Texture);
+    m_Texture = ResourceManager::instance()->createResource<Texture>(texturePath, m_Label + "Tex");
 }
 
 Plane::~Plane()
@@ -56,10 +55,10 @@ Plane::~Plane()
 void Plane::render()
 {
     glBindVertexArray(m_VAO);
-    if (m_Texture.get())
+    if (m_Texture != 0)
     {
         glActiveTexture(GL_TEXTURE0);
-        m_Texture->bind();
+        ResourceManager::instance()->getResource<Texture>(m_Texture)->bind();
     }
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);

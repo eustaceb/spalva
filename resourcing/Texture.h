@@ -5,6 +5,7 @@
 #include <string>
 #include <glad/glad.h>
 #include "Resource.h"
+
 class Texture : public Resource
 {
 public:
@@ -18,17 +19,13 @@ public:
     void unload();
 
     void bind();
-    void unbind();
+    static void unbind();
 
     GLuint getId() const;
-    std::string getPath() const;
     std::string getLabel() const;
     std::string getType() const;
 private:
-    void loadTexture(const std::string &path, const bool &gammaCorrected = false);
-
     GLuint m_Id;
-    std::string m_Path;
     std::string m_Label;
     std::string m_Type;
 

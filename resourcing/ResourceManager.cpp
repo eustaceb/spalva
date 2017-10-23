@@ -1,46 +1,22 @@
+#include "ResourceManager.h"
+
 #define NOMINMAX
 #include <iostream>
 #include <limits>
 
 #include "../Definitions.h"
-#include "ResourceManager.h"
 #include "Texture.h"
+#include "Shader.h"
 #include "../Helpers.h"
 
 ResourceManager* ResourceManager::s_Instance = 0;
 unsigned int ResourceManager::s_Timestamp = 0;
-
-void ResourceGroup::load()
-{
-    for (auto res : resources)
-    {
-        bool& loaded = res.second;
-        if (!loaded)
-        {
-            res.first->load();
-            loaded = true;
-        }
-    }
-    loadedMemory = memory;
-}
-
-void ResourceGroup::unload()
-{
-    for (auto res : resources)
-    {
-        bool& loaded = res.second;
-        if (loaded)
-        {
-            res.first->unload();
-            loaded = false;
-        }
-    }
-    loadedMemory = 0;
-}
+unsigned int ResourceManager::s_ResourceIDCounter = 0;
 
 ResourceManager::ResourceManager()
     : m_MaxLoad(RM_MAX_LOAD_BYTES)
 {
+    m_Resources.push_back(0); // For more comfortable indexing by ID
     createGroup("default");
     m_ActiveGroup = &m_Groups.find("default")->second;
     std::cout << "Initialized the ResourceManager with ";
@@ -62,7 +38,16 @@ ResourceManager * ResourceManager::instance()
         s_Instance = new ResourceManager;
     return s_Instance;
 }
-// @TODO: Consider renaming to bindGroup
+
+// Sets the active group without affecting the timestamp
+void ResourceManager::bindGroup(const std::string & groupName)
+{
+    auto group = m_Groups.find(groupName);
+    assert(group != m_Groups.end());
+    m_ActiveGroup = &group->second;
+}
+
+// Sets the active group and increments its timestamp
 void ResourceManager::accessGroup(const std::string & groupName)
 {
     auto group = m_Groups.find(groupName);
@@ -84,7 +69,7 @@ void ResourceManager::removeGroup(const std::string & groupName)
     auto it = m_Groups.find(groupName);
     if (it != m_Groups.end())
     {
-        it->second.unload();
+        unloadGroupResources(it->second);
         m_Groups.erase(it);
     }
 }
@@ -111,7 +96,7 @@ void ResourceManager::loadGroup(const std::string & groupName)
                 if (!reduceLoad()) break;
             }
         }
-        group.load();
+        loadGroupResources(group);
         m_CurrentLoad += toLoad;
         std::cout << "Current load " << Helpers::bytesToMB(m_CurrentLoad);
         std::cout << " MB. " << std::endl;
@@ -122,34 +107,65 @@ void ResourceManager::unloadGroup(const std::string & groupName)
 {
     auto it = m_Groups.find(groupName);
     if (it != m_Groups.end())
-    {
-        it->second.unload();
-    }
+        unloadGroupResources(it->second);
+    else
+        std::cout << "Could not find group '" << groupName << "'" << std::endl;
 }
 
-/**
-    Defaults to current active texture
-**/
-void ResourceManager::addTexture(std::shared_ptr<Texture> tex, 
-    const std::string & groupName)
+void ResourceManager::reloadActiveGroup()
 {
-    assert(groupName != "" || m_ActiveGroup != 0);
-    // If tex not yet loaded
-    if (m_Textures.find(groupName) == m_Textures.end())
-        m_Textures.insert(std::make_pair(tex->getPath(), tex));
+    unsigned long long toLoad = m_ActiveGroup->memory - m_ActiveGroup->loadedMemory;
+    if (toLoad == 0) return; // Nothing to load
+    if (RM_CACHING_ENABLED != 0)
+    {
+        std::cout << "Reloading active group  (";
+        std::cout << Helpers::bytesToMB(toLoad) << " MB)\n";
+        while (m_CurrentLoad + toLoad > m_MaxLoad)
+        {
+            std::cout << "Running LRU optimization (";
+            std::cout << Helpers::bytesToMB(m_CurrentLoad) << "/";
+            std::cout << Helpers::bytesToMB(m_MaxLoad) << " MB taken)\n";
 
-    if (groupName != "")
-    {
-        auto group = m_Groups.find(groupName);
-        assert(group != m_Groups.end());
-        group->second.resources.push_back(std::make_pair(tex, false));
-        group->second.memory += tex->getMemoryTaken();
+            // If can't reduce any further - stop trying
+            if (!reduceLoad()) break;
+        }
     }
-    else
+    loadGroupResources(*m_ActiveGroup);
+    m_CurrentLoad += toLoad;
+    std::cout << "Current load " << Helpers::bytesToMB(m_CurrentLoad);
+    std::cout << " MB. " << std::endl;
+}
+
+void ResourceManager::loadGroupResources(ResourceGroup& group)
+{
+    for (auto res : group.resources)
     {
-        m_ActiveGroup->resources.push_back(std::make_pair(tex, false));
-        m_ActiveGroup->memory += tex->getMemoryTaken();
+        bool& loaded = res.second;
+        if (!loaded)
+        {
+            if (m_Resources[res.first]->getRefCount() == 0)
+                m_Resources[res.first]->load();
+            m_Resources[res.first]->refer();
+            loaded = true;
+        }
     }
+    group.loadedMemory = group.memory;
+}
+
+void ResourceManager::unloadGroupResources(ResourceGroup& group)
+{
+    for (auto res : group.resources)
+    {
+        bool& loaded = res.second;
+        if (loaded)
+        {
+            m_Resources[res.first]->derefer();
+            if (m_Resources[res.first]->getRefCount() == 0)
+                m_Resources[res.first]->unload();
+            loaded = false;
+        }
+    }
+    group.loadedMemory = 0;
 }
 
 /**
@@ -168,7 +184,7 @@ bool ResourceManager::reduceLoad()
         ResourceGroup& group = it->second;
         if (group.timestamp < minTimestamp && group.loadedMemory != 0 
             && std::addressof(group) != std::addressof(*m_ActiveGroup))
-        {
+        { // @TODO check if &group != m_ActiveGroup is equiv
             minTimestamp = group.timestamp;
             lru = it->first;
         }
@@ -177,7 +193,7 @@ bool ResourceManager::reduceLoad()
     {
         ResourceGroup& group = m_Groups.find(lru)->second;
         m_CurrentLoad -= group.loadedMemory;
-        group.unload();
+        unloadGroupResources(group);
         std::cout << "Unloaded group \"" << lru << "\"" << std::endl;
         return true;
     }
